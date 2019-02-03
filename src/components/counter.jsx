@@ -2,25 +2,45 @@ import React, { Component } from 'react';
 
 class Counter extends Component {
   state = {
-    count: 1,
-    tags: ['1', '2']
+    count: 0,
+    tags: ["tag1", "tag2", "tag3" ]
   };
 
-  renderTags() {
-    if(this.state.tags.length === 0) return <p>there is no tags</p>;
+  // constructor() {
+  //   super();
+  //   this.handleIncrement = this.handleIncrement.bind(this); 
+  // }
 
-    return <ul>{ this.state.tags.map(tag => <li key={ tag }>{ tag }</li>) }</ul>
+  handleIncrement = () => {
+    // ** important: fat arrow function resolves "this" keyword binding issue without super keyword
+    // now we don't need to do rebinding the event handler everytime manually 
+    // plz take a note that this shortcut function would be got rid of in the future from ES6 or not
+    // then use the former apporoach like above with super
+    // amazing man..
+    console.log("Increment Clicked", this);
+    // obj.method();
+    // function();
   }
 
   render() {
     return (
-    <div>
-      { this.state.tags.length === 0 && "Please create a new tag!"}
-      { this.renderTags() }
-    </div>
-    )
+      <div>
+        <span className={ this.getBadgeClasses() }>{ this.formatCount() }</span>
+        <button onClick={ this.handleIncrement } className="btn btn-secondary btn-sm">Increment</button>
+      </div>
+    );
   }
 
+  getBadgeClasses() {
+    let classes = "badge m-2 badge-";
+    classes += (this.state.count === 0) ? "warning" : "primary";
+    return classes;
+  }
+
+  formatCount() {
+    const { count } = this.state;
+    return count === 0 ? 'Zero' : count;
+  }
 }
  
 export default Counter;
