@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // Stateless Functional Component
 const NavBar = props => {
+  console.log('NavBar - Rendered')
+
   return (
     <nav className="navbar navbar-light bg-light">
       <a className="navbar-brand" href="#"> 
